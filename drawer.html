@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body background="#0077b6">
+    <div class="main-content">
+        <div class="container">
+            <h1>Number Drawer</h1>
+            <div id="drawnNumber" class="drawn-number"></div>
+            <button onclick="drawNumber()">Draw a Number</button>
+        </div>
+
+
+    </div>
+
+    <div class="scrollable-content">
+        <div class="drawn-list">
+            <h2>Drawn Numbers</h2>
+            <ul id="numberList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const drawnNumbers = new Set();
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function drawNumber() {
+            if (drawnNumbers.size >= 100) {
+                alert("All numbers between 1 and 100 have been drawn!");
+                return;
+            }
+
+            let newNumber;
+            do {
+                newNumber = getRandomNumber(1, 100);
+            } while (drawnNumbers.has(newNumber));
+
+            drawnNumbers.add(newNumber);
+
+            document.getElementById("drawnNumber").textContent = `Drawn Number: ${newNumber}`;
+
+            const numberList = document.getElementById("numberList");
+            const listItem = document.createElement("li");
+            listItem.textContent = newNumber;
+            numberList.appendChild(listItem);
+        }
+    </script>
+</body>
+
+</html>
